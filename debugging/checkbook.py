@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 class Checkbook:
     # Initialize a new Checkbook instance.
     def __init__(self):
@@ -6,19 +7,27 @@ class Checkbook:
     # Deposit an amount to the checkbook.
     # amount (float): The amount to deposit.
     def deposit(self, amount):
-        self.balance += amount
-        print("Deposited ${:.2f}".format(amount))
-        print("Current Balance: ${:.2f}".format(self.balance))
+        try:
+            amount = float(amount)
+            self.balance += amount
+            print("Deposited ${:.2f}".format(amount))
+            print("Current Balance: ${:.2f}".format(self.balance))
+        except ValueError:
+            print("Invalid input. Please enter a valid number.")
 
     # Withdraw an amount from the checkbook.
     # amount (float): The amount to withdraw.
     def withdraw(self, amount):
-        if amount > self.balance:
-            print("Insufficient funds to complete the withdrawal.")
-        else:
-            self.balance -= amount
-            print("Withdrew ${:.2f}".format(amount))
-            print("Current Balance: ${:.2f}".format(self.balance))
+        try:
+            amount = float(amount)
+            if amount > self.balance:
+                print("Insufficient funds to complete the withdrawal.")
+            else:
+                self.balance -= amount
+                print("Withdrew ${:.2f}".format(amount))
+                print("Current Balance: ${:.2f}".format(self.balance))
+        except ValueError:
+            print("Invalid input. Please enter a valid number.")
 
     # Print the current balance of the checkbook.
     def get_balance(self):
@@ -32,10 +41,10 @@ def main():
         if action.lower() == 'exit':
             break
         elif action.lower() == 'deposit':
-            amount = float(input("Enter the amount to deposit: $"))
+            amount = input("Enter the amount to deposit: $")
             cb.deposit(amount)
         elif action.lower() == 'withdraw':
-            amount = float(input("Enter the amount to withdraw: $"))
+            amount = input("Enter the amount to withdraw: $")
             cb.withdraw(amount)
         elif action.lower() == 'balance':
             cb.get_balance()
